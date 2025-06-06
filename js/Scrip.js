@@ -33,7 +33,7 @@ function MostrarDatos(datos){
 
              <td>
                 <button>Editar</button>
-                <button>Eliminar</button>
+                <button onclick="EliminarPersona(${integrante.id})">Eliminar</button>
              </td>
         </tr>
         `;
@@ -97,3 +97,18 @@ document.getElementById("frmAgregar").addEventListener("submit",async e =>{
         alert("El registro no pudo ser agregado");
     }
 });
+
+//Funcion para borar registros
+async function EliminarPersona(id){
+    const confirmacion = confirm("¿Realmente quieres eliminar el restro?");
+
+    //Validar si el usuario si escofio borrar
+    if(confirmacion){
+        await fetch(`${API_URL}/${id}`, {
+            method: "DELETE"
+        });
+
+        //RECARGAR LA TABLA DESPUES DE ELIMINAR
+        ObtenerIntegrantes();
+    }
+}
